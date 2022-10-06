@@ -31,15 +31,20 @@ var questions = [
 // variables to keep track of quiz state
 // currentQuestion
 // time
+var timer;
 // timerId
+var timerCount;
 
 var currentQuestion = 0;
-var scoreTotal = 99;
+var scoreTotal = 0;
+
 
 // variables to reference DOM elements
 var questionsEl = document.getElementById("questions");
 var startBtn = document.getElementById("start-btn");
 var feedBackElement = document.getElementById("feedback");
+var timerId = document.querySelector(".time-sec")
+var questionsToAsk = document.getElementById("questions");
 
 /// FUNCTION TO START THE QUIZ
 function startQuiz() {
@@ -49,14 +54,17 @@ function startQuiz() {
   startScreen.style.display = "none";
   // un-hide questions section
 
-  var questionsToAsk = document.getElementById("questions");
-  questionsToAsk.style.display = "block";
+  
+  questionsToAsk.classList.remove("hide");
 
   // start timer
+  timerCount = 60;
 
   // show starting time
 
   getQuestion(currentQuestion);
+  timerId.textContent = "timer: " + timerCount;
+  clockTick();
 }
 startBtn.addEventListener("click", startQuiz);
 
@@ -79,7 +87,7 @@ function questionClick(event) {
     feedBackElement.textContent = "You're right!";
     // window.alert("You're right!");
     // give them feedback, letting them know it's right
-
+    scoreTotal += 25;
   }
 
      // move to next question
@@ -147,30 +155,50 @@ function quizEnd() {
   // show end screen
 //why doesn't below work?
 //review "remove"
-  var endScreen = document.getElementById("end-screen");
-  endScreen.className = "hide"
+feedBackElement.classList.add("hide");
 
-  function myFunction() {
-    var element = document.getElementById("myDIV");
-    element.classList.remove("mystyle");
-  }
+questionsToAsk.classList.add("hide");  
+
+var endScreen = document.getElementById("end-screen");
+  endScreen.classList.remove("hide");
+
+  // function myFunction() {
+  //   var element = document.getElementById("myDIV");
+    
+  // }
   // show final score
-  // hide questions section
+  var playerTotal = document.getElementById("final-score");
+  playerTotal.textContent = scoreTotal
+ saveHighscore();
 }
 /// CLICK EVENTS ///
 // user clicks button to submit initials
+
 
 // user clicks button to start quiz
 
 /// FUNCTION FOR UPDATING THE TIME ///
 function clockTick() {
   // update time
+  timerInterval = setInterval(function() {
+    timerCount--;
+    timerId.textContent = "timer: " + timerCount;
   // check if user ran out of time
+  if(timerCount === 0) {
+    clearInterval(timerInterval);
+  }
+}, 1000);
 }
 
 function saveHighscore() {
   // get value of input box - for initials
-  // make sure value wasn't empty
+  var btnSubmit = document.getElementById("submit");
+  btnSubmit.onclick = printHighscores;
+
+  
+
+   // make sure value wasn't empty
+  // if(initialsInput==) 
   // get saved scores from localstorage, or if not any, set to empty array
   // format new score object for current user
   // save to localstorage
@@ -184,7 +212,9 @@ function saveHighscore() {
 
 // user clicks on element containing choices
 
-function pringHighscores() {
+function printHighscores() {
+  var initialsInput = document.getElementById("initials");
+  console.log(initialsInput.value)
   //either get scores from localstorage or set to an empty array
   //sort highscores by score property in descending order
   //loop through scores
@@ -201,3 +231,9 @@ function clearHighscores() {
 ///CLICK EVENT TO RUN THE CLEAR SCORES FUNCTION
 // run function when page loads
 //   printHighscores();
+
+
+
+//TODO: fix ReadME page adding a link & screenshot
+//TODO: add another html page for high scores
+//TOD
