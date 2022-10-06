@@ -45,6 +45,7 @@ var startBtn = document.getElementById("start-btn");
 var feedBackElement = document.getElementById("feedback");
 var timerId = document.querySelector(".time-sec")
 var questionsToAsk = document.getElementById("questions");
+var initialsInput = document.getElementById("initials");
 
 /// FUNCTION TO START THE QUIZ
 function startQuiz() {
@@ -205,17 +206,16 @@ function saveHighscore() {
   // redirect to next page
 }
 
-/// CLICK EVENTS ///
-// user clicks button to submit initials
-
-// user clicks button to start quiz
-
-// user clicks on element containing choices
-
 function printHighscores() {
-  var initialsInput = document.getElementById("initials");
+ 
   console.log(initialsInput.value)
   //either get scores from localstorage or set to an empty array
+
+//   const person = {
+//     initialsInput.value
+// }
+// window.localStorage.setItem('user', JSON.stringify(person));
+
   //sort highscores by score property in descending order
   //loop through scores
   //create li tag for each high score
@@ -231,9 +231,3 @@ function clearHighscores() {
 ///CLICK EVENT TO RUN THE CLEAR SCORES FUNCTION
 // run function when page loads
 //   printHighscores();
-
-
-
-//TODO: fix ReadME page adding a link & screenshot
-//TODO: add another html page for high scores
-//TOD

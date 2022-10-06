@@ -3,15 +3,10 @@ Web API Code Quiz
 
 ## Description
 
-This quiz tests the ability to use JavaScript to rotate through questions, keep score and use a timer.
+This quiz tests my ability to use JavaScript to rotate through questions, keep score and use a timer.
 
-## Table of Contents (Optional)
-
-If your README is long, add a table of contents to make it easy for users to find what they need.
-
--...repository and upload your screenshot to it. Then, using the relative file path, add it to your README using the following syntax:
-
-![alt text](assets/images/screenshot.png)
+https://mmllively.github.io/homework-four-code-quiz/
+![alt text](./Screen%20Shot%202022-10-06%20at%204.09.55%20PM.png)
 
 ## Credits
 
