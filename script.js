@@ -38,6 +38,15 @@ var timerCount;
 var currentQuestion = 0;
 var scoreTotal = 0;
 
+var highScoreList = [];
+var localStorageInfo = JSON.parse(localStorage.getItem("keyitem"));
+console.log(localStorageInfo);
+if (localStorageInfo) {
+  highScoreList = localStorageInfo;
+
+} else {
+  highScoreList = [];
+}
 
 // variables to reference DOM elements
 var questionsEl = document.getElementById("questions");
@@ -45,7 +54,7 @@ var startBtn = document.getElementById("start-btn");
 var feedBackElement = document.getElementById("feedback");
 var timerId = document.querySelector(".time-sec")
 var questionsToAsk = document.getElementById("questions");
-var initialsInput = document.getElementById("initials");
+
 
 /// FUNCTION TO START THE QUIZ
 function startQuiz() {
@@ -57,7 +66,7 @@ function startQuiz() {
 
   
   questionsToAsk.classList.remove("hide");
-
+  feedBackElement.classList.remove("hide");
   // start timer
   timerCount = 60;
 
@@ -71,9 +80,9 @@ startBtn.addEventListener("click", startQuiz);
 
 /// FUNCTION FOR CLICKING A QUESTION ///
 function questionClick(event) {
-  console.log("question-click");
+
   //this - coming from the function of "question-click", the "onclick" is calling the question-click, the btn is the button created that calls
-  console.log(this.value);
+  // console.log(this.value);
   //value comes from the selection made (button clicked)
  
 
@@ -145,13 +154,10 @@ function getQuestion(currentQuestion) {
 /// FUNCTION TO END THE QUIZ ///
 //show the end page 
 function quizEnd() {
-  console.log("end");
- 
-  //look at local storage --> Must "setItem" before "getItem"
   
   // stop timer
-
-
+  clearInterval(timerInterval);
+currentQuestion = 0;
 
   // show end screen
 //why doesn't below work?
@@ -159,7 +165,7 @@ function quizEnd() {
 feedBackElement.classList.add("hide");
 
 questionsToAsk.classList.add("hide");  
-
+timerId.textContent = "timer: finish"; 
 var endScreen = document.getElementById("end-screen");
   endScreen.classList.remove("hide");
 
@@ -195,7 +201,6 @@ function saveHighscore() {
   // get value of input box - for initials
   var btnSubmit = document.getElementById("submit");
   btnSubmit.onclick = printHighscores;
-
   
 
    // make sure value wasn't empty
@@ -208,7 +213,29 @@ function saveHighscore() {
 
 function printHighscores() {
  
-  console.log(initialsInput.value)
+  var initialsInput = document.getElementById("initials");
+  
+  console.log(initialsInput.value);
+  console.log (scoreTotal);
+  var usersInfo = {
+    initials: initialsInput.value,
+    score: scoreTotal
+  }
+  console.log(usersInfo);
+  highScoreList.push(usersInfo);
+ localStorage.setItem("keyitem", JSON.stringify(highScoreList));
+
+
+  // var personScore = (initialsInput.value + scoreTotal);
+  console.log(highScoreList);
+  alert("Your score has been submitted!");
+
+  var endScreen = document.getElementById("end-screen");
+  endScreen.classList.add("hide");
+
+  var startScreen = document.getElementById("start-screen");
+  startScreen.style.display = "block";
+
   //either get scores from localstorage or set to an empty array
 
 //   const person = {
@@ -227,7 +254,17 @@ function clearHighscores() {
   //remove an item from local storage
   //reload the page
 }
-
+console.log("---------------------")
+localStorage.setItem("favorite","blue");
 ///CLICK EVENT TO RUN THE CLEAR SCORES FUNCTION
 // run function when page loads
 //   printHighscores();
+var color = localStorage.getItem("favorite");
+console.log("the color is: ", color);
+
+var listFav = ["blue", "orange", "red"];
+localStorage.setItem("list", JSON.stringify(listFav));
+var newList = JSON.parse(localStorage.getItem("list"));
+console.log("New list: ", newList);
+
+console.log(newList[0]);
